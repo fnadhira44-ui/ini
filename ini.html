@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeautyGlow | Luxury Gold Edition</title>
+    <style>
+        :root {
+            --gold: #d4af37;
+            --dark-gold: #aa841e;
+            --black: #0a0a0a;
+            --light-black: #1a1a1a;
+            --gray: #2d2d2d;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif, Arial;
+            margin: 0;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* Navigasi */
+        nav {
+            background: var(--black);
+            border-bottom: 1px solid var(--gold);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        nav a:hover { color: var(--white); }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+            border-bottom: 1px solid var(--gold);
+        }
+
+        h1 { color: var(--gold); font-size: 2.5em; margin-bottom: 10px; }
+
+        /* Containers */
+        .page { padding: 40px 20px; min-height: 80vh; }
+        .hidden { display: none; }
+
+        /* Produk Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--light-black);
+            border: 1px solid var(--gray);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .card:hover { border-color: var(--gold); transform: translateY(-5px); }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price { color: var(--gold); font-size: 1.3em; font-weight: bold; }
+
+        /* Tombol */
+        button {
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            padding: 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        button:hover { background: var(--white); box-shadow: 0 0 10px var(--gold); }
+
+        /* Form Styling */
+        input, textarea, select {
+            width: 100%;
+            margin: 8px 0;
+            padding: 12px;
+            background: #2d2d2d;
+            border: 1px solid var(--gray);
+            border-radius: 5px;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--gold);
+            outline: none;
+        }
+
+        /* Rute & Estimasi */
+        .route-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--light-black);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid var(--gold);
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border-radius: 50%;
+        }
+
+        .line {
+            width: 2px;
+            height: 40px;
+            background: var(--gray);
+            position: absolute;
+            left: 5px;
+            top: 20px;
+        }
+
+        /* Notif */
+        #notif {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--gold);
+            color: var(--black);
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: none;
+            z-index: 2000;
+            font-weight: bold;
+        }
+
+        footer {
+            background: #000;
+            text-align: center;
+            padding: 40px;
+            border-top: 1px solid var(--gold);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="notif">✨ Produk Berhasil Ditambahkan!</div>
+
+    <nav>
+        <a onclick="showPage('home')">Home</a>
+        <a onclick="showPage('produk')">Koleksi Produk</a>
+        <a onclick="showPage('estimasi')">Estimasi</a>
+        <a onclick="showPage('rute')">Rute Jalan</a>
+    </nav>
+
+    <div id="home" class="page">
+        <header>
+            <h1>BEAUTYGLOW COSMETIC</h1>
+            <p>Luxury Makeup for the Bold and Beautiful</p>
+            <br>
+            <button onclick="showPage('produk')" style="width: auto; padding: 15px 40px;">MULAI BELANJA</button>
+        </header>
+        
+        <div style="text-align: center; margin-top: 50px;">
+            <h2 style="color: var(--gold);">Testimoni Bintang 5</h2>
+            <p>"Kualitas internasional dengan harga terjangkau!" - <strong>Putri, Jakarta</strong></p>
+            <p>"Warna emasnya benar-benar terasa di kemasannya, mewah!" - <strong>Santi, Surabaya</strong></p>
+        </div>
+    </div>
+
+    <div id="produk" class="page hidden">
+        <h2 style="text-align: center; color: var(--gold); margin-bottom: 30px;">Katalog Produk Premium</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://i.pinimg.com/736x/16/e4/b3/16e4b31132312b8f4ce631c9fe0da9cd.jpg">
+                <h3>Golden Matte Lipstick</h3>
+                <p class="price">Rp 350.000</p>
+                <button onclick="tambahKeKeranjang('Golden Matte Lipstick', 350000)">BELI</button>
+            </div>
+            <div class="card">
+                <img src="https://i.pinimg.com/736x/a5/6a/4e/a56a4ee3be7708f4dd69c0afa9d96650.jpg">
+                <h3>Luxury Foundation</h3>
+                <p class="price">Rp 400.000</p>
+                <button onclick="tambahKeKeranjang('Luxury Foundation', 400000)">BELI</button>
+            </div>
+            <div class="card">
+                <img src="https://i.pinimg.com/736x/19/6a/53/196a53290bdad1be6dd388ad7e3d6791.jpg">
+                <h3>Silky Face Powder</h3>
+                <p class="price">Rp 445.000</p>
+                <button onclick="tambahKeKeranjang('Silky Face Powder', 445000)">BELI</button>
+            </div>
+            <div class="card">
+                <img src="https://i.pinimg.com/1200x/aa/c3/74/aac374eace23e275b258e4d4d7b6c29f.jpg">
+                <h3>Rose Gold Blush</h3>
+                <p class="price">Rp 599.000</p>
+                <button onclick="tambahKeKeranjang('Rose Gold Blush', 599000)">BELI</button>
+            </div>
+            <div class="card">
+                <img src="https://i.pinimg.com/736x/bf/6d/0b/bf6d0bfa982bb84d9e8f0aaee9409f44.jpg">
+                <h3>Eye Shadow Palette</h3>
+                <p class="price">Rp 210.000</p>
+                <button onclick="tambahKeKeranjang('Eye Shadow Palette', 210000)">BELI</button>
+            </div>
+            <div class="card">
+                <img src="https://i.pinimg.com/1200x/f2/8c/fe/f28cfe2c282f98ce64e8d25308e38d19.jpg">
+                <h3>Mascara Waterproof</h3>
+                <p class="price">Rp 115.000</p>
+                <button onclick="tambahKeKeranjang('Mascara Waterproof', 115000)">BELI</button>
+            </div>
+        </div>
+
+        <div id="cartSection" style="max-width: 500px; margin: 40px auto; background: var(--light-black); padding: 25px; border-radius: 15px; border: 1px solid var(--gold);">
+            <h3 style="color: var(--gold); border-bottom: 1px solid var(--gray); padding-bottom: 10px;">Keranjang Anda 🛒</h3>
+            <div id="isiKeranjang" style="margin: 15px 0;">Keranjang kosong</div>
+            <h4 id="totalBelanja" style="color: var(--gold);">Total: Rp 0</h4>
+            
+            <input type="text" id="nama" placeholder="Nama Lengkap">
+            <textarea id="alamat" placeholder="Alamat Pengiriman Lengkap" rows="3"></textarea>
+            
+            <label style="display: block; margin-top: 10px; color: var(--gold); font-size: 0.9em;">Pilih Metode Pembayaran:</label>
+            <select id="metodePembayaran">
+                <option value="Transfer Bank (BCA/Mandiri)">Transfer Bank (BCA/Mandiri)</option>
+                <option value="COD (Bayar di Tempat)">COD (Bayar di Tempat)</option>
+                <option value="E-Wallet (OVO/Dana/GoPay)">E-Wallet (OVO/Dana/GoPay)</option>
+            </select>
+
+            <button onclick="checkout()">PESAN VIA WHATSAPP</button>
+        </div>
+    </div>
+
+    <div id="estimasi" class="page hidden">
+        <h2 style="text-align: center; color: var(--gold);">Jadwal Estimasi Pengiriman</h2>
+        <div class="route-container">
+            <table style="width: 100%; border-collapse: collapse;">
+                <tr style="border-bottom: 1px solid var(--gold);">
+                    <th style="padding: 15px; text-align: left;">Wilayah</th>
+                    <th style="padding: 15px; text-align: right;">Durasi</th>
+                </tr>
+                <tr>
+                    <td style="padding: 15px;">DKI Jakarta</td>
+                    <td style="padding: 15px; text-align: right;">1 Hari (Sameday)</td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px;">Jawa Barat / Tengah</td>
+                    <td style="padding: 15px; text-align: right;">2 - 3 Hari</td>
+                </tr>
+                <tr>
+                    <td style="padding: 15px;">Sumatera & Kalimantan</td>
+                    <td style="padding: 15px; text-align: right;">4 - 6 Hari</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div id="rute" class="page hidden">
+        <h2 style="text-align: center; color: var(--gold);">Rute Perjalanan Paket</h2>
+        <div class="route-container">
+            <div class="step">
+                <div class="dot"></div><div class="line"></div>
+                <p><strong>Gudang BeautyGlow (Jakarta)</strong><br><small>Paket sedang dikemas</small></p>
+            </div>
+            <div class="step">
+                <div class="dot"></div><div class="line"></div>
+                <p><strong>Pusat Transit Utama</strong><br><small>Sortir wilayah tujuan</small></p>
+            </div>
+            <div class="step">
+                <div class="dot"></div><div class="line"></div>
+                <p><strong>Kurir Menuju Lokasi</strong><br><small>Paket dalam perjalanan ke alamat anda</small></p>
+            </div>
+            <div class="step">
+                <div class="dot"></div>
+                <p><strong>Alamat Tujuan</strong><br><small>Paket sampai di tangan anda</small></p>
+            </div>
+            
+            <hr style="border: 0; border-top: 1px solid #444; margin: 20px 0;">
+            <h4>Lokasi Gudang Pusat:</h4>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126920.24131551392!2d106.7891559160533!3d-6.229746461941659!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f3e945e34b9d%3A0x5371bf0fdad786a2!2sJakarta!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" width="100%" height="250" style="border:0; border-radius: 10px;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>BeautyGlow Luxury Store</strong></p>
+        <p>Instagram: @beautyglow_id | Email: support@beautyglow.com</p>
+        <p style="font-size: 0.7em; color: #555;">© 2026 High-End Cosmetics Indonesia</p>
+    </footer>
+
+    <script>
+        let keranjang = [];
+        let total = 0;
+
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function tambahKeKeranjang(nama, harga) {
+            keranjang.push({nama, harga});
+            total += harga;
+            
+            // Notifikasi
+            const notif = document.getElementById('notif');
+            notif.style.display = 'block';
+            setTimeout(() => { notif.style.display = 'none'; }, 2000);
+
+            renderKeranjang();
+        }
+
+        function renderKeranjang() {
+            const container = document.getElementById('isiKeranjang');
+            const totalText = document.getElementById('totalBelanja');
+            
+            if (keranjang.length === 0) {
+                container.innerHTML = "Keranjang kosong";
+            } else {
+                container.innerHTML = keranjang.map(i => `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px; font-size: 0.9em; border-bottom: 1px solid #2d2d2d; padding-bottom: 5px;">
+                        <span>${i.nama}</span>
+                        <span>Rp ${i.harga.toLocaleString()}</span>
+                    </div>`).join('');
+            }
+            totalText.innerText = "Total: Rp " + total.toLocaleString();
+        }
+
+        function checkout() {
+            let n = document.getElementById('nama').value;
+            let a = document.getElementById('alamat').value;
+            let m = document.getElementById('metodePembayaran').value;
+
+            if(!n || !a || keranjang.length === 0) {
+                return alert("Mohon lengkapi Nama, Alamat, dan pilih minimal 1 produk!");
+            }
+
+            // Susun Format Pesan WhatsApp
+            let msg = `*PESANAN BARU - BEAUTYGLOW*%0A`;
+            msg += `------------------------------------------%0A`;
+            keranjang.forEach((i, index) => {
+                msg += `${index + 1}. ${i.nama} (Rp ${i.harga.toLocaleString()})%0A`;
+            });
+            msg += `------------------------------------------%0A`;
+            msg += `*Total Belanja:* Rp ${total.toLocaleString()}%0A`;
+            msg += `*Metode Pembayaran:* ${m}%0A%0A`;
+            msg += `*Data Pengiriman:*%0A`;
+            msg += `Nama: ${n}%0A`;
+            msg += `Alamat: ${a}%0A`;
+            msg += `------------------------------------------%0A`;
+            msg += `_Pesanan ini dikirim otomatis dari website._`;
+            
+            // Kirim ke WA
+            window.open(`https://wa.me/6281367765844?text=${msg}`);
+        }
+    </script>
+</body>
+</html>
